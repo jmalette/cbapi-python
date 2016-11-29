@@ -286,8 +286,9 @@ class PendingAnalysis(MutableModel):
         return getattr(self, "md5", None) or getattr(self, "sha1", None) or getattr(self, "sha256", None)
 
 
-class Policy(NewBaseModel):
+class Policy(MutableBaseModel, CreatableModelMixin):
     urlobject = "/api/bit9platform/v1/policy"
+    swagger_meta_file = "protection/models/policy.yaml"
 
 
 class Publisher(MutableModel):

@@ -3,6 +3,7 @@
 from __future__ import absolute_import
 from six import python_2_unicode_compatible
 
+from copy import deepcopy
 import base64
 import os.path
 from six import iteritems, add_metaclass
@@ -358,8 +359,15 @@ class MutableBaseModel(NewBaseModel):
     def _update_object(self):
         if self.__class__.primary_key in self._dirty_attributes.keys() or self._model_unique_id is None:
             log.debug("Creating a new {0:s} object".format(self.__class__.__name__))
+            post_data = deepcopy(self._info)
+            try:
+                if post_data[self.__class__.primary_key] is None:
+                    del post_data[self.__class__.primary_key]
+            except KeyError:
+                pass
+
             ret = self._cb.api_json_request(self.__class__._new_object_http_method, self.urlobject,
-                                            data=self._info)
+                                            data=post_data)
         else:
             log.debug("Updating {0:s} with unique ID {1:s}".format(self.__class__.__name__, str(self._model_unique_id)))
             ret = self._cb.api_json_request(self.__class__._change_object_http_method,

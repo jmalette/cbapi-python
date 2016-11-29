@@ -1,0 +1,34 @@
+type: "object"
+required:
+  - name
+  - description
+  - enforcementLevel
+  - disconnectedEnforcementLevel
+properties:
+  id:
+    type: "integer"
+    description: "Unique policy Id"
+  name:
+    type: "string"
+    description: "Name of the policy"
+  description:
+    type: "string"
+    description: "Description of this policy"
+  enforcementLevel:
+    type: "integer"
+    description: "Target enforcement level. Can be one of:
+20=High (Block Unapproved)
+30=Medium (Prompt Unapproved)
+40=Low (Monitor Unapproved)
+60=None (Visibility)
+80=None (Disabled)
+"
+  disconnectedEnforcementLevel:
+    type: "integer"
+    description: "Target enforcement level for disconnected computers. Can be one of:
+20=High (Block Unapproved)
+30=Medium (Prompt Unapproved)
+40=Low (Monitor Unapproved)
+60=None (Visibility)
+80=None (Disabled)
+"
