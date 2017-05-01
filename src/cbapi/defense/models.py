@@ -24,3 +24,8 @@ class Event(NewBaseModel):
         if type(obj) == dict and "eventInfo" in obj:
             return obj["eventInfo"]
 
+
+class Alert(NewBaseModel):
+    urlobject = "/integrationServices/v3/alert"
+    primary_key = "incidentId"
+
